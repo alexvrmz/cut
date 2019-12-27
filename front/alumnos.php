@@ -77,7 +77,7 @@ include('../cabecera.php');
 		                        <td>{{usuario.telefono_usuario}}</td>
 		                        <td>
 		                          <a href="#" title="Ver Alumno" class="btn btn-info btn-sm btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></a>
-		                          <a href="#" title="Editar Alumno" class="btn btn-warning btn-sm btn-icon" data-toggle="modal" data-target="#editmoldal" @click="selectUsuario(usuario);"><i class="fa fa-edit" aria-hidden="true"></i></a>
+		                          <a href="#" title="Editar Alumno" class="btn btn-warning btn-sm btn-icon" data-toggle="editmodal" data-target="#editmoldal" @click="selectUsuario(usuario);"><i class="fa fa-edit" aria-hidden="true"></i></a>
 		                          <a href="#" title="Eliminar Alumno" class="btn btn-danger btn-sm btn-icon" @click="showingdeleteModal = true; selectUsuario(usuario);"><i class="fa fa-eraser" aria-hidden="true"></i></a>
 		                        </td>
 		                      </tr>
