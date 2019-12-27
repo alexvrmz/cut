@@ -7,13 +7,7 @@ include('../cabecera.php');
     	</div>
 		
 		<div class="content" id="root">
-			<div class="alert alert-danger col-md-12" id="alertMessage" role="alert" v-if="errorMessage">
-					{{ errorMessage }}
-				</div>
-
-				<div class="alert alert-success col-md-12" id="alertMessage" role="alert" v-if="successMessage">
-					{{ successMessage }}
-				</div>
+			
 
 			<div class="col-md-12">
 	          <div class="card">
@@ -53,7 +47,7 @@ include('../cabecera.php');
 		                    <h4 class="card-title">Alumnos <small class="description"></small></h4>
 		                  </div>
 		                  <div class="col-md-3">
-		                    <button class="btn btn-success" @click="showingaddModal = true;" data-toggle="modal" data-target="#addmoldal"><b><i class="fa fa-user-plus"></i> Agregar Alumno</b></button>
+		                    <button class="btn btn-success" @click="app.showingaddModal = true;"><b><i class="fa fa-user-plus"></i> Agregar Alumno</b></button>
 		                  </div>
 		                </div>
 		              </div>
@@ -77,7 +71,7 @@ include('../cabecera.php');
 		                        <td>{{usuario.telefono_usuario}}</td>
 		                        <td>
 		                          <a href="#" title="Ver Alumno" class="btn btn-info btn-sm btn-icon"><i class="fa fa-eye" aria-hidden="true"></i></a>
-		                          <a href="#" title="Editar Alumno" class="btn btn-warning btn-sm btn-icon" data-toggle="editmodal" data-target="#editmoldal" @click="selectUsuario(usuario);"><i class="fa fa-edit" aria-hidden="true"></i></a>
+		                          <button class="btn btn-warning btn-sm btn-icon" @click="showingeditModal = true; selectUsuario(usuario);"><i class="fa fa-edit" aria-hidden="true"></i></button>
 		                          <a href="#" title="Eliminar Alumno" class="btn btn-danger btn-sm btn-icon" @click="showingdeleteModal = true; selectUsuario(usuario);"><i class="fa fa-eraser" aria-hidden="true"></i></a>
 		                        </td>
 		                      </tr>
@@ -92,19 +86,19 @@ include('../cabecera.php');
 
 				
 
-				<!-- Modal Agregar 
-				<div class="modal fade" id="addmoldal" tabindex="-1" role="dialog" aria-labelledby="addmoldalLabel" aria-hidden="true" v-if="showingaddModal">
-				 	<div class="modal-dialog" role="document">
-				    	<div class="modal-content">
-				      		<div class="modal-header">
-				        		<h5 class="modal-title" id="exampleModalLabel">Agregar Alumno</h5>
-							    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							    <span aria-hidden="true">&times;</span>
-							    </button>
-				      		</div>
-						    <div class="modal-body">
-						      	<form>
-							 		<div class="form-group">
+				<!-- Modal Agregar -->
+				<div class="modal" id="addmodal" tabindex="-1" role="dialog" aria-labelledby="addmodalLabel" aria-hidden="true" v-if="showingaddModal" >
+				 	<div class="modal-dialog modal-dialog-scrollable" role="document">
+				 		<form data-toggle="validator">
+				    		<div class="modal-content">
+				      			<div class="modal-header">
+					        		<h5 class="modal-title" id="exampleModalLabel">Agregar Alumno</h5>
+								    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="showingaddModal = false;">
+								    <span aria-hidden="true">&times;</span>
+								    </button>
+				      			</div>
+						    	<div class="modal-body">
+						      		<div class="form-group">
 									   	<label for="apaterno_usuario">Apellido Paterno</label>
 									    <input type="text" class="form-control" id="apaterno_usuario" placeholder="Apellido Paterno" v-model="newUsuario.apaterno_usuario">
 									</div>
@@ -121,25 +115,27 @@ include('../cabecera.php');
 							    		<input type="text" class="form-control" id="matricula_usuario" placeholder="Matricula" v-model="newUsuario.matricula_usuario">
 							  		</div>
 							  		<div class="form-group">
-							    		<label for="email_usuario">Email</label>
-							    		<input type="text" class="form-control" id="email_usuario" placeholder="usuario@ejemplo.com" v-model="newUsuario.email_usuario">
-							  		</div>
+							  			<label for="email_usuario">Email</label>
+							    		<input type="text" class="form-control" id="email_usuario" placeholder="usuario@ejemplo.com" v-model="newUsuario.email_usuario" required="true">
+							    	</div>
 							  		<div class="form-group">
-							    		<label for="telefono_usuario">Telefono</label>
-							    		<input type="text" class="form-control" id="telefono_usuario" placeholder="Telefono" v-model="newUsuario.telefono_usuario">
-							  		</div>
-								
+								    	<label for="telefono_usuario">Telefono</label>
+								    	<input type="text" class="form-control" id="telefono_usuario" placeholder="Telefono" v-model="newUsuario.telefono_usuario">
+								  	</div>
+								</div>
+								<div class="modal-footer">
+							    	<button type="button" class="btn btn-secondary" @click="showingaddModal = false;">Cerrar</button>
+							        <button type="submit" class="btn btn-primary" @click="showingaddModal = false; addUsuario();">Crear</button>
+						        </div>
 						    </div>
-						    <div class="modal-footer">
-						      	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-						        <button type="button" class="btn btn-primary" data-dismiss="modal" @click="addUsuario();">Crear</button>
-						        </form>
-						    </div>
-						</div>
+						    
+						</form>
 					</div>
-				</div>-->
+				</div>
+			</div> 
 
-				<!-- Modal Editar -->
+
+				<!-- Modal Editar 
 				<div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="editmodalLabel" aria-hidden="true" v-if="showingeditModal">
 				 	<div class="modal-dialog" role="document">
 				    	<div class="modal-content">
@@ -184,13 +180,37 @@ include('../cabecera.php');
 						    </div>
 						</div>
 					</div>
-				</div>
+				</div> -->
+
+				<!-- Button trigger modal -->
+
+
+<!-- Modal --
+<div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>-->
 
 
 
 				
 
-	<!-- add modal 
+	<!-- add modal  
 		<div class="modal col-md-6" id="addmodal" v-if="showingaddModal">
 				<div class="modal-head">
 					<p class="p-left p-2">Add usuario</p>
@@ -198,15 +218,33 @@ include('../cabecera.php');
 
 					<div class="modal-body">
 							<div class="col-md-12">
-								<label for="uname">Usuarioname</label>
-								<input type="text" id="uname" class="form-control" v-model="newUsuario.matricula_usuario">
-
-								<label for="email">Email</label>
-								<input type="text" id="email" class="form-control" v-model="newUsuario.email">
-
-								<label for="phn">Mobile</label>
-								<input type="text" id="phn" class="form-control" v-model="newUsuario.mobile">
-							</div>
+								<form>
+							 		<div class="form-group">
+									   	<label for="apaterno_usuario">Apellido Paterno</label>
+									    <input type="text" class="form-control" id="apaterno_usuario" placeholder="Apellido Paterno" v-model="newUsuario.apaterno_usuario">
+									</div>
+							  		<div class="form-group">
+							    		<label for="amaterno_usuario">Apellido Materno</label>
+							    		<input type="text" class="form-control" id="amaterno_usuario" placeholder="Apellido Materno" v-model="newUsuario.amaterno_usuario">
+							  		</div>
+							  		<div class="form-group">
+							    		<label for="nombres_usuario">Nombre(s)</label>
+							    		<input type="text" class="form-control" id="nombres_usuario" placeholder="Apellido Materno" v-model="newUsuario.nombres_usuario">
+							  		</div>
+							  		<div class="form-group">
+							    		<label for="matricula_usuario">Matricula</label>
+							    		<input type="text" class="form-control" id="matricula_usuario" placeholder="Matricula" v-model="newUsuario.matricula_usuario">
+							  		</div>
+							  		<div class="form-group">
+							    		<label for="email_usuario">Email</label>
+							    		<input type="text" class="form-control" id="email_usuario" placeholder="usuario@ejemplo.com" v-model="newUsuario.email_usuario">
+							  		</div>
+							  		<div class="form-group">
+							    		<label for="telefono_usuario">Telefono</label>
+							    		<input type="text" class="form-control" id="telefono_usuario" placeholder="Telefono" v-model="newUsuario.telefono_usuario">
+							  		</div>
+								
+						    </div>
 
 						<hr/>
 							<button type="button" class="btn btn-success"  @click="showingaddModal = false; addUsuario();">Save changes</button>
@@ -216,7 +254,7 @@ include('../cabecera.php');
 			</div> -->
 
 
-	<!-- edit modal
+	<!-- edit modal 
 		<div class="modal col-md-6" id="editmodal" v-if="showingeditModal">
 			<div class="modal-head">
 				<p class="p-left p-2">Edit usuario</p>
@@ -243,8 +281,6 @@ include('../cabecera.php');
 
 
 		
-
-	
 
 	</div>
 	<script src="../assets/js/jquery.js"></script>
@@ -273,7 +309,8 @@ include('../cabecera.php');
 
 	  methods: {
 	  	getAllUsuarios: function () {
-	  		axios.get('https://cutlacaelel.ml/api/v1.php?action=leer')
+	  		//axios.get('https://cutlacaelel.ml/api/v1.php?action=leer')
+	  		axios.get('http://localhost/cut/api/v1.php?action=leer')
 	  		.then(function (response) {
 	  			console.log(response);
 
@@ -287,24 +324,28 @@ include('../cabecera.php');
 
 	  	addUsuario: function () {
 	  		var formData = app.toFormData(app.newUsuario);
-	  		axios.post('https://cutlacaelel.ml/api/v1.php?action=agregar', formData)
+	  		//axios.post('https://cutlacaelel.ml/api/v1.php?action=agregar', formData)
+	  		axios.post('http://localhost/cut/api/v1.php?action=agregar', formData)
 	  		.then(function (response) {
 	  			console.log(response);
 	  			app.newUsuario = {matricula_usuario: "", apaterno_usuario: "", amaterno_usuario: "", nombres_usuario: "", email_usuario: "", telefono_usuario: ""};
 
 	  			if (response.data.error) {
 	  				app.errorMessage = response.data.message;
+	  				app.notificacionE('top','center');
 	  			} else {
 	  				app.successMessage = response.data.message;
 	          		//app.successMessage2 = response.data.message2;
 	  				app.getAllUsuarios();
+	  				app.notificacionS('top','center');
 	  			}
 	  		});
 	  	},
 
 	  	updateUsuario: function () {
 	  		var formData = app.toFormData(app.clickedUsuario);
-	  		axios.post('https://cutlacaelel.ml/api/v1.php?action=actualizar', formData)
+	  		//axios.post('https://cutlacaelel.ml/api/v1.php?action=actualizar', formData)
+	  		axios.post('http://localhost/cut/api/v1.php?action=actualizar', formData)
 	  		.then(function (response) {
 	  			console.log(response);
 	  			app.clickedUsuario = {};
@@ -321,7 +362,8 @@ include('../cabecera.php');
 
 	  	deleteUsuario: function () {
 	  		var formData = app.toFormData(app.clickedUsuario);
-	  		axios.post('https://cutlacaelel.ml/api/v1.php?action=eliminar', formData)
+	  		//axios.post('https://cutlacaelel.ml/api/v1.php?action=eliminar', formData)
+	  		axios.post('http://localhost/cut/api/v1.php?action=eliminar', formData)
 	  		.then(function (response) {
 	  			console.log(response);
 	  			app.clickedUsuario = {};
@@ -353,6 +395,40 @@ include('../cabecera.php');
 	  		app.successMessage = "";
 	     	//app.successMessage2 = "";
 	  	},
+
+	  	notificacionS: function(from, align) {
+		    color = 'success';
+
+		    $.notify({
+		      icon: "now-ui-icons ui-1_bell-53",
+		      message: app.successMessage
+
+		    }, {
+		      type: color,
+		      timer: 2000,
+		      placement: {
+		        from: from,
+		        align: align
+		      }
+		    });
+		},
+
+		notificacionE: function(from, align) {
+		    color = 'danger';
+
+		    $.notify({
+		      icon: "now-ui-icons ui-1_bell-53",
+		      message: app.errorMessage
+
+		    }, {
+		      type: color,
+		      timer: 2000,
+		      placement: {
+		        from: from,
+		        align: align
+		      }
+		    });
+		}
 
 
 	  }

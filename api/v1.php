@@ -21,8 +21,8 @@
 	foreach($_GET as $k => $v) {$$k = limpiar_cadena($v);}
 
 	// Database connection
-	$conn = new mysqli("localhost", "alexrmzi_ejemplo", "c72821g*", "alexrmzi_ejemplovue");
-	//$conn = new mysqli("192.168.1.78", "uservue", "Myx9ln.2", "crudvue");
+	//$conn = new mysqli("localhost", "alexrmzi_ejemplo", "c72821g*", "alexrmzi_ejemplovue");
+	$conn = new mysqli("192.168.1.78", "uservue", "Myx9ln.2", "crudvue");
 	if ($conn->connect_error) {
 		die("Error de conexion con la base de datos!");
 	}
