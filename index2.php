@@ -1,4 +1,5 @@
 <?php
 phpinfo();
-echo 'hola';
+echo 'holab<br>';
+echo 'que hay';
 ?>
