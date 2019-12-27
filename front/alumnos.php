@@ -92,7 +92,7 @@ include('../cabecera.php');
 
 				
 
-				<!-- Modal Agregar -->
+				<!-- Modal Agregar 
 				<div class="modal fade" id="addmoldal" tabindex="-1" role="dialog" aria-labelledby="addmoldalLabel" aria-hidden="true" v-if="showingaddModal">
 				 	<div class="modal-dialog" role="document">
 				    	<div class="modal-content">
@@ -137,7 +137,7 @@ include('../cabecera.php');
 						    </div>
 						</div>
 					</div>
-				</div>
+				</div>-->
 
 				<!-- Modal Editar -->
 				<div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="editmodalLabel" aria-hidden="true" v-if="showingeditModal">
