@@ -1,4 +1,4 @@
-# Centro Universitario Tlacaélel
+# CUT
 
 
 
